@@ -23,5 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+.src/Utils/Firebase.jsx
+Netflix-Clone\src\Utils\Firebase.jsx
 Netflix-Clone/src/Utils/Firebase.jsx
 src/Utils/Firebase.jsx
