@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+Netflix-Clone/src/Utils/Firebase.jsx
+src/Utils/Firebase.jsx
