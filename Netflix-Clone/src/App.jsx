@@ -1,13 +1,14 @@
-import Login from "./Components/Login"
-
-
+import { useEffect } from "react";
+import appRouter from "./Routes/Routes";
+import { BrowserRouter,RouterProvider } from "react-router-dom";
 function App() {
-
+  
   return (
     <>
-     <Login/>
+ 
+        <RouterProvider router={appRouter} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
