@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   Navbar,
-  MobileNav,
+  Collapse,
   Typography,
   Button,
   Menu,
@@ -45,6 +45,7 @@ function ProfileMenu() {
     {
       label: user?.displayName,
       icon: UserCircleIcon,
+      id:1,
       onClick: () => {
         console.log("Profile clicked");
       },
@@ -53,13 +54,13 @@ function ProfileMenu() {
     {
       label: "Sign Out",
       icon: PowerIcon,
+      id:2,
       onClick: () => {
         signOutUser();
         console.log("Sign Out clicked");
       },
     },
   ];
-  // Authorised User Check
 
  
   return (
@@ -86,7 +87,7 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon, onClick }, key) => {
+        {profileMenuItems.map(({ label, icon, onClick,id }, key={id}) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <MenuItem
@@ -132,7 +133,7 @@ const navListItems = [
     icon: CubeTransparentIcon,
   },
   {
-    label: "Blocks",
+    label: "Blockss",
     icon: CubeTransparentIcon,
   },
 ];
@@ -163,7 +164,7 @@ export function NavbarMenu() {
   const dispatch = useDispatch(); //
   const navigate = useNavigate();
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe =onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         const { uid, displayName, email } = user;
@@ -176,7 +177,13 @@ export function NavbarMenu() {
         navigate("/");
       }
     });
-  }, []);
+
+    // Unsubscribe when component UnMount
+   return () => unsubscribe();
+
+   
+
+  }, [dispatch, navigate]);
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
@@ -225,9 +232,9 @@ export function NavbarMenu() {
 
         <ProfileMenu />
       </div>
-      <MobileNav open={isNavOpen} className="overflow-scroll">
+      <Collapse open={isNavOpen} className="overflow-scroll">
         <NavList />
-      </MobileNav>
+      </Collapse>
     </Navbar>
   );
 }
